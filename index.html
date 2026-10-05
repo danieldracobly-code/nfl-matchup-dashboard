@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NFL matchup dashboard</title>
+<meta name="description" content="Compare any two NFL teams: offense vs. defense, situational and efficiency stats, results and schedule.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="tophead">
+      <h1>NFL matchup dashboard</h1>
+      <button class="print-btn" id="printBtn" type="button">Print or save PDF report</button>
+    </div>
+    <p id="asof"></p>
+    <div class="picker">
+      <div><label for="selA">Team A</label><select id="selA"></select></div>
+      <button class="swap" id="swap" type="button" aria-label="Swap team A and team B">Swap</button>
+      <div><label for="selB">Team B</label><select id="selB"></select></div>
+    </div>
+    <div class="slate" id="slate"></div>
+  </header>
+
+  <div class="band" id="band"></div>
+  <p class="meet" id="meet"></p>
+
+  <nav class="jump" aria-label="Sections">
+    <a href="#edges">Biggest edges</a><a href="#units">Offense vs. defense</a><a href="#tape">Full comparison</a><a href="#results">Results and schedule</a><a href="#notes">Data notes</a>
+  </nav>
+
+  <section id="edges">
+    <h2>Biggest edges</h2>
+    <p class="sub">Where a top-half unit ranks well above the unit it will line up against. Ranks are out of 32 teams.</p>
+    <div class="edges" id="edgesBody"></div>
+  </section>
+
+  <section id="units">
+    <h2>Offense vs. defense</h2>
+    <p class="sub">Each row puts an offense next to the defense it faces. On the ruler, further left is a better league rank, so the marker on the left has the edge.</p>
+    <div class="units" id="unitsBody"></div>
+  </section>
+
+  <section id="tape">
+    <h2>Full comparison</h2>
+    <p class="sub">The two teams side by side. Each strip shows all 32 teams, with better always to the right. <span class="mk ma"></span><span id="keyA"></span> &nbsp; <span class="mk mb"></span><span id="keyB"></span></p>
+    <div class="toggle" role="group" aria-label="Unit to compare">
+      <button type="button" id="tOff" aria-pressed="true">Offense</button><button type="button" id="tDef" aria-pressed="false">Defense</button>
+    </div>
+    <div class="tape" id="tapeBody"></div>
+  </section>
+
+  <section id="results">
+    <h2>Results and schedule</h2>
+    <p class="sub">Game by game. Yards and turnovers read as this team's number first, then the opponent's. Kickoff times are Eastern.</p>
+    <div class="logs" id="logsBody"></div>
+    <div class="common" id="commonBody"></div>
+  </section>
+
+  <footer id="notes">
+    <h2>Data notes</h2>
+    <p id="srcNote"></p>
+    <dl>
+      <dt>EPA per play</dt><dd>Expected points added. Each play is scored by how much it changed the points a team should expect from that down, distance and field position. Above zero is good for an offense, below zero is good for a defense.</dd>
+      <dt>Success rate</dt><dd>Share of plays with positive EPA.</dd>
+      <dt>Net yards per pass play</dt><dd>Passing yards minus sack yards, divided by attempts plus sacks.</dd>
+      <dt>Explosive play rate</dt><dd>Share of plays that are a pass of 20+ yards or a run of 10+ yards.</dd>
+      <dt>Red-zone touchdown rate</dt><dd>Touchdowns divided by drives that reached the opponent's 20.</dd>
+      <dt>Simple Rating (SRS)</dt><dd>Average point margin adjusted for the opponents played; zero is a league-average team. It follows the idea behind Pro Football Reference's SRS and can differ from their published figure by up to about a point.</dd>
+    </dl>
+  </footer>
+</div>
+
+<!-- Filled in by app.js when the report button is pressed; only visible when printing. -->
+<div id="report" aria-hidden="true"></div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
